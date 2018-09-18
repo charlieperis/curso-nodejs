@@ -1,13 +1,19 @@
+// >> Definimos el objeto..
 let personaje = {
-    nombre: 'Ramon',
-    apellido: 'Sanchez',
-    caracteristica: 'Narigón',
+    nombre: 'Quijote',
+    apellido: 'de la Mancha',
+    caracteristica: 'Flaco',
 
-    getNombre: function() {
-        return (`${nombre} ${apellido} ${caracteristica}`);
+    getPersonaje: function() {
+        return `${this.nombre} ${this.apellido} ${this.caracteristica}`;
     }
 };
+// >> Esto..
+let nombreP = personaje.nombre;
+let apelldioP = personaje.apellido;
+let caracteristicaP = personaje.caracteristica;
+// >> Es lo mismo que esto usando destruturación..
+let { nombre: elnombre, apellido, caracteristica } = personaje; // nombre: elnombre reeemplaza a la variable //
 
-let { nombre: elnombre, apellido, caracteristica } = personaje;
-
+console.log(personaje.getPersonaje());
 console.log(elnombre, apellido, caracteristica);
