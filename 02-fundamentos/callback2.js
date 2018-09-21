@@ -24,6 +24,7 @@ let salarios = [{
 let getEmpleado = (id, callback) => {
 
     let empleadoDB = empleados.find(empleado => empleado.id === id)
+    
     //Si NO existe (!) un empleado, devuelve esto:
     if (!empleadoDB) {
         callback(`No existe el usuario con el id ${id}`)
