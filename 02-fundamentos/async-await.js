@@ -3,9 +3,6 @@ let getNombre = async() => {
 };
 
 
-
-
-
 getNombre().then(nombre => {
         console.log(nombre);
     })
