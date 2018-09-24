@@ -37,8 +37,6 @@ let getEmpleado = (id) => {
 }
 
 
-
-
 //--- Declaración de SALARIOS
 let getSalario = (empleado) => {
 
