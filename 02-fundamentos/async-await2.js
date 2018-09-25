@@ -1,4 +1,4 @@
-//Mini base de datos para probar. Empleados y Salarios:
+//Mini base de datos para probar. Empleados, Salarios y mascotas:
 let empleados = [{
     id: 1,
     nombre: 'Charlie',
@@ -17,6 +17,22 @@ let salarios = [{
     id: 2,
     salario: 1500,
 }];
+
+let mascotas = [{
+    id: 1,
+    mascota: 'perro',
+    color: 'marron',
+}, {
+    id: 2,
+    mascota: 'gato',
+    color: 'negro',
+},{
+    id: 3,
+    mascota: 'Hamster',
+    color: 'blanco',
+}];
+
+
 
 
 //--- Declaración de EMPLEADOS
@@ -54,15 +70,39 @@ let getSalario = async(empleado) => {
 }
 
 
+//--- Declaración de MASCOTAS
+let getMascota = async(empleado) => {
+
+    let mascotaDB = mascotas.find(mascota => mascota.id === empleado.id);
+
+    //Si NO existe (!) una mascota, devuelve esto:
+    if (!mascotaDB) {
+        throw new Error(`No hay una mascota para ${empleado.nombre}`);
+        //Si existe mascota, devuelve esto:
+    } else {
+        return {
+            nombre: empleado.nombre,
+            mascota: mascotaDB.mascota,
+            color: mascotaDB.color,
+            id: empleado.id
+        };
+    }    
+}
+
+
+
 
 let getInformacion = async(id) => {
 
     let empleado = await getEmpleado(id);
     let resp = await getSalario(empleado);
+    let resp_mascota = await getMascota(empleado);
 
-    return `El salario de  ${resp.nombre} es de $ ${resp.salario}`
+    return `El salario de  ${resp.nombre} es de $ ${resp.salario} y tiene de mascota un ${resp_mascota.mascota} de color ${resp_mascota.color}`
 };
 
-getInformacion(1)
+
+
+getInformacion(3)
     .then(mensaje => console.log(mensaje))
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
