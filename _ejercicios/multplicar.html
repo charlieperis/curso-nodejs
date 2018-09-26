@@ -1,0 +1,24 @@
+<input id="data" type="number" size="30">
+<button id="btn">Click me</button>
+<div id="display"></div>
+
+<script>
+    function clicked() {
+    //Guarda el Value del Input en una variable
+    var input_value = document.getElementById('data').value;
+    //Limpia el resultado
+    document.getElementById('display').innerHTML = '';
+    //Ejecuta la lista
+    for (var i = 0; i <= 10; i++) {             
+         document.getElementById('display').innerHTML += input_value + ' x ' + i +' = ' + input_value * i + '<br>'; 
+    }
+
+    for (var i = 1; i <= 10; i++) {
+       console.log(input_value * i);
+    }   
+    
+}
+//Busca por id el elemento 'btn' y le asigna el evento click que ejecute la funcion 'clicked'
+document.getElementById('btn').addEventListener('click', clicked);
+
+</script>
