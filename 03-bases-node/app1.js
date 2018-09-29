@@ -1,27 +1,5 @@
-const argv = require('yargs')
-    .command('listar', 'Imprime en cosola la tabla de multiplicar', {
-        base: {
-            demand: true,
-            alias: 'b'
-        },
-        limite: {
-            alias: 'l',
-            default: 10
-        }
-    })
-    .command('crear', 'genera un archivo con la tabla y el limite selecionado', {
-        base: {
-            demand: true,
-            alias: 'b'
-        },
-        limite: {
-            alias: 'l',
-            default: 10
-        }
-    })
-    .help()
-    .argv;
-
+const argv = require('./config/yargs.js').argv; //llama al archivo que tiene mi configuracion del argv
+const colors = require('colors');
 const { crearArchivo, listarTabla } = require('./multiplicar/multiplicar');
 
 //por consola escribimos node app --base=5
@@ -30,6 +8,7 @@ const { crearArchivo, listarTabla } = require('./multiplicar/multiplicar');
 //console.log(argv);
 //console.log('Base:', argv.base);
 //console.log('Limite:', argv.limite);
+
 let comando = argv._[0];
 
 switch (comando) {
@@ -41,7 +20,7 @@ switch (comando) {
     case 'crear': // node app1 crear --limite=100 --base=5 (o cluaquier número)
         console.log('Crear');
         crearArchivo(argv.base, argv.limite)
-            .then(archivo => console.log(`El archivo tablas-del-${archivo} se creó correctamente`))
+            .then(archivo => console.log(`${archivo}`))
             .catch(err => console.log(err))
         break;
 
