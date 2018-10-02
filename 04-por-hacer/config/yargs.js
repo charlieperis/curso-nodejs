@@ -3,14 +3,14 @@ const argv = require('yargs')
         descripcion: {
             demand: true,
             alias: 'd',
-            desc: 'Descripcion de la tarea por hacer'
+            desc: 'Descripción de la tarea por hacer'
         }
     })
-    .command('actualizar', 'Modifica las tareas', {
+    .command('actualizar', 'Modifica las tareas guardada', {
         descripcion: {
             demand: true,
             alias: 'd',
-            desc: 'Descripcion de la tarea por hacer'
+            desc: 'Descripción de la tarea por hacer'
         },
         completado: {
             default: true,
