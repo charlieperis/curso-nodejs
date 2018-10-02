@@ -9,7 +9,7 @@ const opts = {
     }
 }
 const argv = require('yargs')
-    .command('listar', 'Imprime en cosola la tabla de multiplicar', opts)
+    .command('listar', 'Imprime en consola la tabla de multiplicar', opts)
     .command('crear', 'genera un archivo con la tabla y el limite selecionado', opts)
     .help()
     .argv;
