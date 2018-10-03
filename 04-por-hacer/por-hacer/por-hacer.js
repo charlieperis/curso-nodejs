@@ -1,50 +1,60 @@
 const fs = require('fs');
 const colors = require('colors');
 
-let listadoPorHacer = [];
-
-const guardarDB = () => {
-
-    let data = JSON.stringify(listadoPorHacer);
-
-    fs.writeFile(`db/data.json`, data, (err) => {
-        if (err) throw new Error('La tarea no se pudo guardar', err);
-    });
-}
 
 
-const cargarDB = () => {
+
+const cargarDB = () => { //cargarDB se define en una funcion de flecha para cargar la lista de tareas que guardamos
     try {
-        listadoPorHacer = require('../db/data.json');
+        listadoPorHacer = require('../db/data.json');//busca el archivo '../db/data.jason' e intenta (con try) almacenar en la variable 'listadoPorHacer' su contenido...
     } catch (error) {
-        listadoPorHacer = [];
+        listadoPorHacer = [];//si aun no guardamos nada o si el archivo no contiene nada, genera un arreglo (array) vacío para que
     }
 }
 
 
-const crear = (descripcion) => {
 
-    cargarDB();
 
-    let porHacer = {
+let listadoPorHacer = []; //inicializa el 'listadoPorHacer' como un arreglo vacío
+
+const guardarDB = () => { //guardasDB se define como una funcion de flecha para guardar en una lista, las tareas...
+
+    let data = JSON.stringify(listadoPorHacer); //guarda en la variable 'data' el 'listadoPorHacer' en formato válido JSON...
+
+    fs.writeFile(`db/data.json`, data, (err) => { //escribe la 'data' en el archivo 'db/data.json'
+        if (err) throw new Error('La tarea no se pudo guardar', err); //si se produce algún error, aparece ese mensaje...
+    });
+}
+
+
+
+
+const crear = (descripcion) => { //la funcion 'crear' se sefine como una funcion de flecha para crear una nueva tarea
+
+    cargarDB(); //llama a la funcion cargarDB que contiene el 'listadoPorHacer'...
+
+    let porHacer = { //en la variable 'porHacer' que cada elemento contiene una 'descripcion' y un 'completado'
         descripcion: descripcion,
         completado: false
     };
 
-    listadoPorHacer.push(porHacer);
+    listadoPorHacer.push(porHacer); //se hace un push (o se escribe) la información almacenada en 'porHacer' y se agrega al 'listadoPorHacer'
 
-    guardarDB();
+    guardarDB(); //guarda en la base de datos...
 
-    return porHacer;
+    return porHacer// devuelve la tarea que acabamos de crear
 
 }
 
-const getListado = () => {
-    cargarDB();
-    return listadoPorHacer;
+
+const getListado = () => { //la funcion de flecha getListado carga la lista de tareas
+    cargarDB(); //primero llama a la funcion cargarDB que carga los datos que tenemos guardados en nuestro JSON
+    return listadoPorHacer; //y nos muestra el 'listadoPorHacer'
 }
 
-module.exports = {
+
+
+module.exports = { //exportamos las funciones que necesitamos usar externamente
     crear,
     getListado
 }

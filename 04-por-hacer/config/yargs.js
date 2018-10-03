@@ -1,12 +1,12 @@
 const argv = require('yargs')
-    .command('crear', 'Crea una nueva tarea por hacer', {
+    .command('crear', 'Crea una nueva tarea por hacer', { //definimos el comando 'crear'
         descripcion: {
             demand: true,
             alias: 'd',
             desc: 'Descripción de la tarea por hacer'
         }
     })
-    .command('actualizar', 'Modifica las tareas guardada', {
+    .command('actualizar', 'Modifica las tareas guardada', { //definimos el comando 'actualizar'
         descripcion: {
             demand: true,
             alias: 'd',
