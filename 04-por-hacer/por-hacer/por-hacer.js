@@ -6,12 +6,11 @@ const colors = require('colors');
 
 const cargarDB = () => { //cargarDB se define en una funcion de flecha para cargar la lista de tareas que guardamos
     try {
-        listadoPorHacer = require('../db/data.json');//busca el archivo '../db/data.jason' e intenta (con try) almacenar en la variable 'listadoPorHacer' su contenido...
+        listadoPorHacer = require('../db/data.json'); //busca el archivo '../db/data.jason' e intenta (con try) almacenar en la variable 'listadoPorHacer' su contenido...
     } catch (error) {
-        listadoPorHacer = [];//si aun no guardamos nada o si el archivo no contiene nada, genera un arreglo (array) vacío para que
+        listadoPorHacer = []; //si aun no guardamos nada o si el archivo no contiene nada, genera un arreglo (array) vacío para que
     }
 }
-
 
 
 
@@ -42,7 +41,7 @@ const crear = (descripcion) => { //la funcion 'crear' se sefine como una funcion
 
     guardarDB(); //guarda en la base de datos...
 
-    return porHacer// devuelve la tarea que acabamos de crear
+    return porHacer // devuelve la tarea que acabamos de crear
 
 }
 
@@ -53,7 +52,6 @@ const getListado = () => { //la funcion de flecha getListado carga la lista de t
 }
 
 
-<<<<<<< HEAD
 const actualizar = (descripcion, completado = true) => {
 
     cargarDB();
@@ -69,6 +67,7 @@ const actualizar = (descripcion, completado = true) => {
     }
 
 }
+
 
 const borrar = (descripcion) => {
 
@@ -87,11 +86,7 @@ const borrar = (descripcion) => {
 }
 
 
-module.exports = {
-=======
-
 module.exports = { //exportamos las funciones que necesitamos usar externamente
->>>>>>> ec3820b1629a0d903ab068e1df164f21a4035758
     crear,
     getListado,
     actualizar,
