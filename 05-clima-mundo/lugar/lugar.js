@@ -18,7 +18,6 @@ const getLugarLatLng = async(direccion) => {
     //console.log(JSON.stringify(resp.data, undefined, 2)); //Obtiene todos los elementos del json y lo formatea para que se vea mejor "resp.data, undefined -sirve ara rremplazar por otros datos-", 2 -es el espacioado en el formateo del json-
 
     let location = resp.data.results[0]; //definimos la location para recorrer el array que devuelve google maps
-
     let coors = location.geometry.location; //reutilizamos location y eguimos reccoriendo el array hasta encontrar los datos que necesitamos
 
     //console.log(`Lugar: ${location.formatted_address}`);
