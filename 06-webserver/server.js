@@ -1,6 +1,13 @@
 const express = require('express');
 const app = express();
+const colors = require('colors');
+
+const port = process.env.PORT || 3000;
+
+//Se Incluye el helpers con datos globales para en cualqueir parte del sitio
 const hbs = require('hbs');
+require('./hbs/helpers.js');
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -8,17 +15,16 @@ app.use(express.static(__dirname + '/public'));
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
 
+
 app.get('/', (req, res) => {
     res.render('index', {
-        nombre: 'Charlie',
-        anio: new Date().getFullYear()
+        nombre: 'Charlie'
     });
 });
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        nombre: 'Monse',
-        anio: new Date().getFullYear()
+        nombre: 'Monse'
     });
 });
 
@@ -35,6 +41,6 @@ app.get('/data', (req, res) => {
 */
 
 
-app.listen(3000, () => {
-    console.log('Escuchando peticiones del puerto 3000');
+app.listen(port, () => {
+    console.log(`Escuchando peticiones del puerto ${port}`);
 });
