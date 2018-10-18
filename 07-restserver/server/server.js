@@ -19,7 +19,8 @@ app.use(bodyParser.json());
 app.use(require('./routes/index.js'));
 
 
-//Configuración de Monggose para la base de datos
+//Configuración de MongOose para la base de datos
+mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.myUrlDB, { useNewUrlParser: true }, (err, res) => {
     if (err) throw error;
     console.log('Base de datos Online OK');
