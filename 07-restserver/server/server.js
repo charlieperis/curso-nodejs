@@ -20,11 +20,10 @@ app.use(require('./routes/index.js'));
 
 
 //Configuración de Monggose para la base de datos
-mongoose.connect(process.env.myUrlDB, (err, res) => {
+mongoose.connect(process.env.myUrlDB, { useNewUrlParser: true }, (err, res) => {
     if (err) throw error;
     console.log('Base de datos Online OK');
 });
-
 
 app.listen(process.env.PORT, () => {
     console.log(`Escuchando el puerto`, process.env.PORT)

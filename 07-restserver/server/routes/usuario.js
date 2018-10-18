@@ -1,11 +1,9 @@
 const express = require('express');
-const app = express();
 const Usuario = require('../models/usuario.js');
-
+const { verificarToken } = require('../middleware/autenticacion.js');
 const bcrypt = require('bcryptjs');
-
 const _ = require('underscore');
-
+const app = express();
 
 //GET
 app.get('/', function (req, res) {
@@ -14,7 +12,7 @@ app.get('/', function (req, res) {
 
 
 //GET
-app.get('/usuario', function (req, res) {
+app.get('/usuario', verificarToken, (req, res) => {
 
     let desde = req.query.desde || 0;
     desde = Number(desde) - 1;
@@ -23,7 +21,7 @@ app.get('/usuario', function (req, res) {
     let limite = req.query.limite || limiteDefault;
     limite = Number(limite) + 1;
 
-    Usuario.find({estado: true}, 'nombre email') //muestra todos los registro con {estado: true} y los campos que defino entre ''. SI no pongo nada, trae todos los campos.
+    Usuario.find({ estado: true }, 'nombre email') //muestra todos los registro con {estado: true} y los campos que defino entre ''. SI no pongo nada, trae todos los campos.
         .skip(desde)
         .limit(limite)
         .exec((err, usuarios) => {
@@ -35,7 +33,7 @@ app.get('/usuario', function (req, res) {
                 });
             }
 
-            Usuario.count({estado: true}, (err, conteo) => {
+            Usuario.count({ estado: true }, (err, conteo) => {
 
                 res.json({
                     ok: true,
