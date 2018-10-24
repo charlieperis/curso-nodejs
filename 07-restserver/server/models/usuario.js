@@ -1,5 +1,5 @@
 const mongoose = require ('mongoose');
-const uniqueValidatoer = require ('mongoose-unique-validator');
+const uniqueValidator = require ('mongoose-unique-validator');
 
 //definimos los roles posibles que puede tener nuestro sistema de datos
 let rolesValidos = {
@@ -54,7 +54,7 @@ usuarioSchema.methods.toJSON = function() {
 
 
 // con este metodo lanzamos el error de todos los datos que son required en el Schema
-usuarioSchema.plugin(uniqueValidatoer, { message: '{PATH} debe ser único.' });
+usuarioSchema.plugin(uniqueValidator, { message: '{PATH} debe ser único.' });
 
 
 module.exports = mongoose.model('usuario', usuarioSchema);

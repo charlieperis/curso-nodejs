@@ -14,6 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+//habilitar la carpeta public
+app.use(express.static(__dirname + '../../public'));
+
 
 //Configuración global de rutas (aca se cargan todas las rutas para hacer las peticiones)
 app.use(require('./routes/index.js'));

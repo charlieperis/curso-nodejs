@@ -1,18 +1,37 @@
 const express = require('express');
 const Usuario = require('../models/usuario.js');
-const { verificarToken } = require('../middleware/autenticacion.js');
-const bcrypt = require('bcryptjs');
+const { verificarToken, verificarAdminRole } = require('../middleware/autenticacion.js');
+const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const app = express();
 
 //GET
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
     res.json('Hola Mundo!!!');
+});
+
+app.get('/usuarios', (req, res) => {
+    Usuario.find({ estado: true }).exec((err, usuarios) => {
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err 
+            });
+        }
+
+        return res.json({
+            usuarios
+        });
+
+    });
+
 });
 
 
 //GET
 app.get('/usuario', verificarToken, (req, res) => {
+
 
     let desde = req.query.desde || 0;
     desde = Number(desde) - 1;
@@ -50,7 +69,7 @@ app.get('/usuario', verificarToken, (req, res) => {
 
 
 //POST
-app.post('/usuario', function (req, res) {
+app.post('/usuario', [verificarToken, verificarAdminRole], (req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
@@ -78,12 +97,12 @@ app.post('/usuario', function (req, res) {
 
 
 //PUT - actualiza los datos
-app.put('/usuario/:id', function (req, res) {
+app.put('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
     let id = req.params.id;
     //Acá definimos que campos SE PUEDEN MODIFICAR con el undescrore
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
-    Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
+    Usuario.findOneAndUpdate(id, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
 
         if (err) {
             return res.status(400).json({
@@ -104,7 +123,7 @@ app.put('/usuario/:id', function (req, res) {
 
 
 //DELETE (Cambia el esta do de true a false, pero no elimina el registro) 
-app.delete('/usuario/:id', function (req, res) {
+app.delete('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
 
     let id = req.params.id;
 
@@ -112,7 +131,7 @@ app.delete('/usuario/:id', function (req, res) {
         estado: false
     }
 
-    Usuario.findByIdAndUpdate(id, cambiarEstado, { new: true }, (err, usuarioDB) => {
+    Usuario.findOneAndUpdate(id, cambiarEstado, { new: true }, (err, usuarioDB) => {
 
         if (err) {
             return res.status(400).json({
@@ -133,11 +152,11 @@ app.delete('/usuario/:id', function (req, res) {
 
 
 //DELETE (Borra definitivamente el registro) 
-app.delete('/usuario/delete/:id', function (req, res) {
+app.delete('/usuario/delete/:id', [verificarToken, verificarAdminRole], (req, res) => {
 
     let id = req.params.id;
 
-    Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
+    Usuario.findOneAndDelete(id, (err, usuarioBorrado) => {
 
         if (err) {
             return resstatus(400).json({
