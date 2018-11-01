@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '../../public'));
 app.use(require('./routes/index.js'));
 
 
-//Configuración de MongOose para la base de datos
+//Configuración de Mongoose para la base de datos
 mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.myUrlDB, { useNewUrlParser: true }, (err, res) => {
     if (err) throw error;

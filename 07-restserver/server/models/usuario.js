@@ -1,5 +1,5 @@
-const mongoose = require ('mongoose');
-const uniqueValidator = require ('mongoose-unique-validator');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 //definimos los roles posibles que puede tener nuestro sistema de datos
 let rolesValidos = {
@@ -30,7 +30,7 @@ let usuarioSchema = new Schema({
     role: {
         type: String,
         default: 'USER_ROLE',
-        enum: rolesValidos      
+        enum: rolesValidos
     },
     estado: {
         type: Boolean,
@@ -39,12 +39,16 @@ let usuarioSchema = new Schema({
     google: {
         type: Boolean,
         default: false
+    },
+    fecha: {
+        type: Date,
+        default: Date.now()
     }
 });
 
 
 //con este metodo, ocultamos el password cuando devolvemos la información cargada
-usuarioSchema.methods.toJSON = function() {
+usuarioSchema.methods.toJSON = function () {
     let user = this;
     let userObject = user.toObject();
     delete userObject.password;

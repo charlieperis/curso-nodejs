@@ -122,7 +122,7 @@ app.put('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
 
 
 
-//DELETE (Cambia el esta do de true a false, pero no elimina el registro) 
+//DELETE (Cambia el estado de true a false, pero no elimina el registro) 
 app.delete('/usuario/:id', [verificarToken, verificarAdminRole], (req, res) => {
 
     let id = req.params.id;
