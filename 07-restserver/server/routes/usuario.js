@@ -29,7 +29,7 @@ app.get('/usuarios', (req, res) => {
 });
 
 
-//GET
+//GET - listar los registros ue estan guardados en la base de datos (con parametro de paginador -limite- y -desde- ) (Ej de petición: localhost:3000/usuario?limite=10&desde=1)
 app.get('/usuario', verificarToken, (req, res) => {
 
 
@@ -68,7 +68,7 @@ app.get('/usuario', verificarToken, (req, res) => {
 
 
 
-//POST
+//POST - Agragar un registro a la base de datos
 app.post('/usuario', [verificarToken, verificarAdminRole], (req, res) => {
     let body = req.body;
 
