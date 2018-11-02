@@ -19,6 +19,10 @@ let categoriaSchema = new Schema({
     fecha: {
         type: Date,
         default: Date.now()
+    },
+    usuario: {
+        type: Schema.Types.ObjectId,
+        ref: 'Usuario'
     }
 });
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const Usuario = require('../models/usuario.js');
 const Categoria = require('../models/categoria.js');
+const { verificarToken, verificarAdminRole } = require('../middleware/autenticacion.js');
 const _ = require('underscore');
 const app = express();
 
@@ -27,14 +28,41 @@ app.get('/categorias', (req, res) => {
     });
 });
 
+
+
+
+//Ver una Categoría por id
+app.get('/categoria/:id', (req, res) => {
+
+    let id = req.params.id;
+    let body = _.pick(req.body, ['nombre', 'descripcion', 'estado']);
+
+    Categoria.findById(id, body, { estado: true }, 'id nombre descripcion', (err, categoriaDB) => {
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+        return res.json({
+            ok: true,
+            categoria: categoriaDB
+        });
+
+    });
+});
+
+
 // Insertar una nueva categoría
-app.post('/categoria', (req, res) => {
+app.post('/categoria', [verificarToken, verificarAdminRole], (req, res) => {
 
     let body = req.body;
 
     let categoria = new Categoria({
         nombre: body.nombre,
-        descripcion: body.descripcion
+        descripcion: body.descripcion,  
+        usuario: req.usuario._id      
     });
 
     categoria.save((err, categoriaDB) => {
@@ -46,13 +74,19 @@ app.post('/categoria', (req, res) => {
             });
         }
 
+        if (!categoriaDB) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+
         return res.json({
             ok: true,
-            categoriaDB
+            categoria: categoriaDB            
         });
     });
 });
-
 
 
 //Actualizar una Categoría
@@ -64,6 +98,13 @@ app.put('/categoria/:id', (req, res) => {
     Categoria.findOneAndUpdate(id, body, { new: true, runValidator: true, context: 'query' }, (err, categoriaDB) => {
 
         if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+
+        if (!categoriaDB) {
             return res.status(400).json({
                 ok: false,
                 err
