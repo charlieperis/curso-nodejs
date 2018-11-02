@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 let verificarToken = (req, res, next) => {
 
-    let token = req.get('token_auth'); // eso te pasa por el header, el parametro 'token_auth' y el valor es el token del usuario
+    let token = req.get('token_auth'); // eso te pasa por el header, el parametro 'token_auth' y el valor es el token del usuario aue se obtiene del login
 
     jwt.verify(token, process.env.SEED, (err, decoded) => {
 
