@@ -10,11 +10,11 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 
 //CADUCIDAD DEL TOKEN
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30 //El token expira en 30 dias ( 60 segundos * 60 min * 24 horas * 30 días)
+process.env.CADUCIDAD_TOKEN = '48h';
 
 
 //SEED del Token
-process.env.SEED = process.env.SEED || 'my-secret-seed-token'
+process.env.SEED = process.env.SEED || 'my-secret-seed-token';
 
 
 //BASE DE DATOS

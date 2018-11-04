@@ -29,6 +29,38 @@ app.get('/usuarios', (req, res) => {
 });
 
 
+app.get('/mostrarusuario/:id', (req, res) => {
+    let id = req.params.id;
+    let body = _.pick(req.body, ['nombre', 'email']);
+
+    Usuario.findById(id, body, { estado: true }, (err, usuarioDB) => {
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        }
+
+        if (!usuarioDB) {
+            return res.status(500).json({
+                ok: false,
+                err: {
+                    message: 'El ID no es válido'
+                }
+            });
+        }
+
+        return res.json({
+            ok: true,
+            usuario: usuarioDB
+        });
+
+    });
+
+});
+
+
 //GET - listar los registros ue estan guardados en la base de datos (con parametro de paginador -limite- y -desde- ) (Ej de petición: localhost:3000/usuario?limite=10&desde=1)
 app.get('/usuario', verificarToken, (req, res) => {
 

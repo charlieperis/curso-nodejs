@@ -1,0 +1,19 @@
+{
+  "name": "passportjs-example",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "mongoose": "~3.8.8",
+    "passport": "~0.2.0",
+    "passport-facebook": "~1.0.2",
+    "passport-twitter": "~1.0.2"
+  },
+  "engines": {
+    "node": "10.10.0"
+  }
+}
