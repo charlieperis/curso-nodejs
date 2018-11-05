@@ -14,7 +14,7 @@ require('./models/user');
 require('./passport')(passport);
 
 // Conexión a la base de datos de MongoDB que tenemos en local
-mongoose.connect('mongodb://localhost:27017/facebook-test', function(err, res) {
+mongoose.connect('mongodb://charlieperis:charlie123579@ds151753.mlab.com:51753/facebook-test', function(err, res) {
   if(err) throw err;
   console.log('Conectado con éxito a la BD');
 });
