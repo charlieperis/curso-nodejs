@@ -1,5 +1,5 @@
 
-//Facebook 
+//Facebook App charlie-test
 var config = {
     facebook: {
         id: '179033279679642',
