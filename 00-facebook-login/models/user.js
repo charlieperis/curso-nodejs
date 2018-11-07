@@ -11,7 +11,7 @@ var UserSchema = new Schema({
 	name				: String, // Nombre del usuario
 	email: String,
 	token: String,
-	provider		: String, // Cuenta del usuario (Twitter o Facebook en este ejemplo)
+	//provider		: String, // Cuenta del usuario (Twitter o Facebook en este ejemplo)
 	provider_id : {type: String, unique: true}, // ID que proporciona Twitter o Facebook
 	photo			 : String, // Avatar o foto del usuario
 	createdAt	 : {type: Date, default: Date.now} // Fecha de creación

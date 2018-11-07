@@ -11,10 +11,12 @@ var passport = require('passport'); // Passport: Middleware de Node que facilita
 
 // Importamos el modelo usuario y la configuración de passport
 require('./models/user');
+
 require('./passport')(passport);
 
 // Conexión a la base de datos de MongoDB que tenemos en local
-mongoose.connect('mongodb://charlieperis:charlie123579@ds151753.mlab.com:51753/facebook-test', function(err, res) {
+// Base de datos en mLab: mongodb://charlieperis:charlie123579@ds151753.mlab.com:51753/facebook-test   
+mongoose.connect('mongodb://localhost:27017/facebook-test', function(err, res) {
   if(err) throw err;
   console.log('Conectado con éxito a la BD');
 });
