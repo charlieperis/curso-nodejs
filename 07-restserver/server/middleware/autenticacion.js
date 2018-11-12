@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 let verificarToken = (req, res, next) => {
 
-    let token = req.get('token_auth'); // eso te pasa por el header, el parametro 'token_auth' y el valor es el token del usuario aue se obtiene del login
+    let token = req.get('token_auth'); // eso se pasa por el header, el parametro 'token_auth' y el valor es el token del usuario aue se obtiene del login
 
     jwt.verify(token, process.env.SEED, (err, decoded) => {
 
@@ -21,8 +21,35 @@ let verificarToken = (req, res, next) => {
         next();
 
     });
-
 }
+
+
+
+
+//VERIFICACION DE TOKEN DE IMAGEN
+
+let verificarTokenImg = (req, res, next) => {
+
+    let token = req.query.token; // eso se pasa por la URL, el parametro 'token_auth' y el valor es el token del usuario aue se obtiene del login
+
+    jwt.verify(token, process.env.SEED, (err, decoded) => {
+
+        if (err) {
+            return res.status(401).json({
+                ok: false,
+                err: {
+                    message: 'El Token no es válido'
+                }
+            });
+        }
+
+        req.usuario = decoded.usuario;
+        next();
+
+    });
+}
+
+
 
 
 //VERIFICACION DE ADMIN ROL
@@ -46,5 +73,6 @@ let verificarAdminRole = (req, res, next) => {
 
 module.exports = {
     verificarToken,
-    verificarAdminRole
+    verificarAdminRole,
+    verificarTokenImg
 }
