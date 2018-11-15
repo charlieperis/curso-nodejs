@@ -16,36 +16,9 @@ app.use(express.static(publicPath));
 
 
 // IO = Es la comunicación con e backend
-let io = sockectIO(server);
+module.exports.io = sockectIO(server);
+require('./sockets/sockets.js');
 
-
-io.on('connection', (client) => {
-    console.log('Usuario conectado');
-
-    client.emit('enviarMensaje', {
-        usuario: 'Administrado',
-        mensaje: 'Bienvenido a esta App!!'
-
-    });
-
-    client.on('disconnect', () => {
-        console.log('Usuario desconectado!');
-    });
-
-    //Escuchar cliente
-    client.on('enviarMensaje', (mensaje, callback) => {
-        if (mensaje.usuario) {
-            callback({
-                resp: 'Todo salió bien! :)'
-            });
-        } else {
-            callback({
-                resp: 'Todo salio MAL! :('
-            });
-        }
-    });
-
-});
 
 server.listen(port, (err) => {
     if (err) throw new Error(err);
