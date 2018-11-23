@@ -15,7 +15,13 @@ io.on('connection', (client) => {
     });
 
     //Escuchar cliente
-    client.on('enviarMensaje', (mensaje, callback) => {
+    client.on('enviarMensaje', (data, callback) => {
+        
+        console.log(data);
+
+        client.broadcast.emit('enviarMensaje', data);
+
+        /*
         if (mensaje.usuario) {
             callback({
                 resp: 'Todo salió bien! :)'
@@ -25,6 +31,7 @@ io.on('connection', (client) => {
                 resp: 'Todo salio MAL! :('
             });
         }
+        */
     });
 
 });
